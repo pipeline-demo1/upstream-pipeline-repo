@@ -1,0 +1,17 @@
+name: Upstream Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: devsecops-pipeline-demo/ci-template-repo/.github/workflows/base-ci.yml@main
+    with:
+      app_name: "Upstream-App"
+
+  trigger_downstream:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Triggering downstream pipeline"
