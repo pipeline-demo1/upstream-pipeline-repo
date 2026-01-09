@@ -10,6 +10,20 @@ jobs:
     with:
       app_name: "Upstream-App"
 
+  selenium_test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Selenium Test
+        run: |
+          echo "Running Selenium tests"
+          javac selenium-tests/GoogleTest.java
+          java -cp selenium-tests GoogleTest
+
+
   trigger_downstream:
     needs: build
     runs-on: ubuntu-latest
